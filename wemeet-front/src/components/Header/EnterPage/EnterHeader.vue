@@ -1,5 +1,5 @@
 <template>
-    <Toolbar class="p-0 mt-4 mx-2 border-0">
+    <Toolbar class="p-0 mt-4 mx-2 bg-primary-reverse border-0">
         <template #start>
             <wemeet-name></wemeet-name>
         </template>

@@ -18,11 +18,7 @@
                             class="px-2"
                             text
                         >
-                            <img
-                                src="@/assets/icons/backArrowBlack.svg"
-                                alt="Custom Icon"
-                                style="width: 20px; height: 20px"
-                            />
+                            <img :src="themeBackIcon" alt="Custom Icon" style="width: 20px; height: 20px" />
                         </Button>
                     </div>
                     <div v-for="item in registerFormEnters" v-bind:key="item.id" class="mx-3">
@@ -43,11 +39,7 @@
                             ><template #default>
                                 <div class="m-1 w-11 flex justify-content-between">
                                     <p class="m-0 font-medium text-lg">Register</p>
-                                    <img
-                                        src="@/assets/icons/registerArrow.svg"
-                                        alt="Custom Icon"
-                                        style="width: 20px; height: 20px"
-                                    />
+                                    <img :src="themeIcon" alt="Custom Icon" style="width: 20px; height: 20px" />
                                 </div> </template
                         ></Button>
                     </div>
@@ -67,8 +59,8 @@ const textCl = defineModel('textCl')
 
 function closeTheForm() {
     formCreation.value = false
-    setTimeout(() => (textCl.value = false), 2000)
-    setTimeout(() => (formOpen.value = false), 4000)
+    setTimeout(() => (textCl.value = false), 1000)
+    setTimeout(() => (formOpen.value = false), 2000)
 }
 
 const email = ref('')
@@ -97,6 +89,21 @@ const registerFormEnters = [
         value: password2,
     },
 ]
+
+import { computed } from 'vue'
+import { loginArrowWhite, loginArrowBlack } from '@assets/index.js'
+import { backArrowBlack, backArrowWhite } from '@assets/index.js'
+import { userSettingsStore } from '../../../../store/userSettingsStore'
+const store = userSettingsStore()
+const themeIcon = computed(() => {
+    if (!store.$state.darkModeOn) return loginArrowBlack
+    return loginArrowWhite
+})
+
+const themeBackIcon = computed(() => {
+    if (!store.$state.darkModeOn) return backArrowBlack
+    return backArrowWhite
+})
 </script>
 <style>
 .forms-create-enter-active {

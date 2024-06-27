@@ -8,11 +8,7 @@
                         <template #default>
                             <div class="flex w-12 justify-content-between">
                                 <p class="m-0 font-semibold">log in</p>
-                                <img
-                                    src="@/assets/icons/login.svg"
-                                    alt="Custom Icon"
-                                    style="width: 20px; height: 20px"
-                                />
+                                <img :src="themeIcon" alt="Custom Icon" style="width: 20px; height: 20px" />
                             </div>
                         </template>
                     </Button>
@@ -20,11 +16,7 @@
                         <template #default>
                             <div class="flex w-12 justify-content-between">
                                 <p class="m-0 font-semibold">sign up</p>
-                                <img
-                                    src="@/assets/icons/signup.svg"
-                                    alt="Custom Icon"
-                                    style="width: 20px; height: 20px"
-                                />
+                                <img :src="themeSignIcon" alt="Custom Icon" style="width: 20px; height: 20px" />
                             </div>
                         </template>
                     </Button>
@@ -63,8 +55,8 @@ const textClosed = ref(false)
 
 function openForm() {
     if (loginFormOpen.value || registerFormOpen.value) {
-        setTimeout(() => (textClosed.value = true), 2000)
-        setTimeout(() => (createdForm.value = true), 4000)
+        setTimeout(() => (textClosed.value = true), 1000)
+        setTimeout(() => (createdForm.value = true), 2000)
     }
 }
 
@@ -79,6 +71,20 @@ function openRegisterForm() {
     openForm()
     console.log(registerFormOpen.value)
 }
+
+import { userSettingsStore } from '../../../../store/userSettingsStore'
+import { computed } from 'vue'
+import { loginButtonIcon, loginButtonIconBlack } from '@assets/index.js'
+import { signUpButtonBlack, signUpButtonWhite } from '@assets/index.js'
+const store = userSettingsStore()
+const themeIcon = computed(() => {
+    if (!store.$state.darkModeOn) return loginButtonIconBlack
+    return loginButtonIcon
+})
+const themeSignIcon = computed(() => {
+    if (!store.$state.darkModeOn) return signUpButtonBlack
+    return signUpButtonWhite
+})
 </script>
 
 <style>
@@ -88,10 +94,10 @@ function openRegisterForm() {
 
 /* Анимация исчезания интерфейса под формой */
 .closeRightText-enter-active {
-    transition: all 2s ease;
+    transition: all 1s ease;
 }
 .closeRightText-leave-active {
-    transition: all 2s ease;
+    transition: all 1s ease;
 }
 
 .closeRightText-enter-from {
