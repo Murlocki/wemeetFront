@@ -1,7 +1,7 @@
 <template>
     <div
         class="grid-background mt-5 flex align-items-center justify-content-center flex-wrap md:flex-nowrap"
-        style="height: 530px"
+        style="height: fit-content"
     >
         <image-slider></image-slider>
         <right-panel-enter></right-panel-enter>
