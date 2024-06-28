@@ -3,7 +3,9 @@ import wemeetLogoWhite from './icons/HeaderLogos/wemeetWhite.svg'
 
 import textLogoPath from './icons/HeaderLogos/wemeetTextLogo.svg'
 import textLogoPathWhite from './icons/HeaderLogos/wemeetTextLogoWhite.svg'
+
 import sliderImagesJson from './sliderImages/sliderImages.json'
+import aboutUsImagesJson from './aboutUsImages/aboutImages.json'
 
 import loginButtonIconBlack from './icons/loginIcons/login.svg'
 import loginButtonIcon from './icons/loginIcons/loginBlack.svg'
@@ -18,6 +20,7 @@ import signUpButtonBlack from './icons/loginIcons/signup.svg'
 import signUpButtonWhite from './icons/loginIcons/signupWhite.svg'
 
 export {
+    aboutUsImagesJson,
     signUpButtonBlack,
     signUpButtonWhite,
     backArrowBlack,
