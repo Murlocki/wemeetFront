@@ -19,7 +19,10 @@ import backArrowWhite from './icons/loginIcons/backArrowWhite.svg'
 import signUpButtonBlack from './icons/loginIcons/signup.svg'
 import signUpButtonWhite from './icons/loginIcons/signupWhite.svg'
 
+import helpPageText from './helpPage/helpPageQuestions.json'
+
 export {
+    helpPageText,
     aboutUsImagesJson,
     signUpButtonBlack,
     signUpButtonWhite,

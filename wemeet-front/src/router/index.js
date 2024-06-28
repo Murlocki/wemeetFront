@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import EnterPage from '../components/MainSection/EnterPage/EnterPage.vue'
 import MainContainer from '../components/MainSection/EnterPage/MainContainer.vue'
 import AboutPage from '../components/MainSection/AboutPage/AboutPage.vue'
+import HelpPage from '../components/MainSection/HelpPage/HelpPage.vue'
 const routes = [
     {
         path: '',
@@ -17,7 +18,7 @@ const routes = [
             },
             {
                 path: '/help',
-                component: MainContainer,
+                component: HelpPage,
             },
             {
                 path: '/treat',
