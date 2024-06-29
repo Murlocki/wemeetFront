@@ -3,6 +3,7 @@ import EnterPage from '../components/MainSection/EnterPage/EnterPage.vue'
 import MainContainer from '../components/MainSection/EnterPage/MainContainer.vue'
 import AboutPage from '../components/MainSection/AboutPage/AboutPage.vue'
 import HelpPage from '../components/MainSection/HelpPage/HelpPage.vue'
+import TreatPageMain from '../components/MainSection/TreatPage/TreatPageMain.vue'
 const routes = [
     {
         path: '',
@@ -22,7 +23,7 @@ const routes = [
             },
             {
                 path: '/treat',
-                component: MainContainer,
+                component: TreatPageMain,
             },
         ],
     },

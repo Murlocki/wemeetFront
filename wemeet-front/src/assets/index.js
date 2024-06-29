@@ -20,8 +20,10 @@ import signUpButtonBlack from './icons/loginIcons/signup.svg'
 import signUpButtonWhite from './icons/loginIcons/signupWhite.svg'
 
 import helpPageText from './helpPage/helpPageQuestions.json'
+import treatPageText from './treatPage/treatPage.json'
 
 export {
+    treatPageText,
     helpPageText,
     aboutUsImagesJson,
     signUpButtonBlack,

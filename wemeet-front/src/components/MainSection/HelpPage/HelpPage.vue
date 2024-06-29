@@ -6,7 +6,7 @@
         <div class="flex justify-content-center">
             <Accordion :activeIndex="0" style="width: 90%">
                 <AccordionTab v-for="item in helpPageText" :key="item.id" :header="item.header">
-                    <p class="m-0">
+                    <p class="m-0 text-sm md:text-base">
                         {{ item.text }}
                     </p>
                 </AccordionTab>
