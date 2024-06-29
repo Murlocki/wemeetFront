@@ -2,7 +2,7 @@
     <Panel :header="currentId == 0 ? '' : currentId + '.'" :toggleable="true" class="mt-3">
         <div class="p-2">{{ item.text }}</div>
         <div class="p-2">
-            <treat-page v-for="child in item.children" :key="child.id" :item="child" :parentId="currentId" />
+            <treat-page v-for="child in item.children" :key="child.id" :item="child" :parentId="currentId.toString()" />
         </div>
     </Panel>
 </template>

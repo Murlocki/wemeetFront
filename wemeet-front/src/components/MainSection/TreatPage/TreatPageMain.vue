@@ -3,7 +3,12 @@
         <Panel v-for="item in treatPageText" :key="item.id" :header="showedId(item) + item.header" :toggleable="true">
             <div class="p-2">{{ item.text }}</div>
             <div class="p-2">
-                <treat-page v-for="child in item.children" :key="child.id" :item="child" :parentId="item.id" />
+                <treat-page
+                    v-for="child in item.children"
+                    :key="child.id"
+                    :item="child"
+                    :parentId="item.id.toString()"
+                />
             </div>
         </Panel>
     </div>
