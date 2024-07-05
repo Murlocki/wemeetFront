@@ -1,11 +1,17 @@
 <script setup>
 import CookieDialog from './components/CommonCookieDialog/CookieDialog.vue'
+import EnterHeader from './components/Header/EnterHeader.vue'
+import FooterPage from './components/CommonFooter/FooterPage.vue'
 </script>
 
 <template>
     <div class="h-screen">
         <cookie-dialog></cookie-dialog>
+        <div style="position: sticky; top: 0; z-index: 99">
+            <enter-header class="h-full"></enter-header>
+        </div>
         <router-view></router-view>
+        <footer-page></footer-page>
     </div>
 </template>
 

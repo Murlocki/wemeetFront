@@ -3,8 +3,8 @@
         class="grid-background mt-5 flex align-items-center justify-content-center flex-wrap md:flex-nowrap bg-primary-reverse"
         style="height: fit-content"
     >
-        <image-slider></image-slider>
-        <right-panel-enter></right-panel-enter>
+        <image-slider class="md:mr-4 lg:mr-4"></image-slider>
+        <right-panel-enter class="md:ml-4 lg:ml-4"></right-panel-enter>
     </div>
 </template>
 

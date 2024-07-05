@@ -30,5 +30,7 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
         }
     }
 
-    return { darkModeOn, choosedStorage, chooseStorage, setVisualMode, getJwt, setJwtKey }
+    const isLoggged = ref(true)
+
+    return { darkModeOn, choosedStorage, chooseStorage, setVisualMode, getJwt, setJwtKey, isLoggged }
 })

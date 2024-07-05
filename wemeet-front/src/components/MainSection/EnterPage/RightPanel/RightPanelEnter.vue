@@ -1,5 +1,5 @@
 <template>
-    <div class="p-1 flex flex-column justify-content-center mx-3 w-7 md:w-3 align-content-center" style="height: 530px">
+    <div class="p-1 flex flex-column justify-content-center w-7 md:w-4 align-content-center" style="height: 530px">
         <transition name="closeRightText">
             <div v-if="!(loginFormOpen || registerFormOpen)">
                 <RightPanelTitlesVue class="mb-5"></RightPanelTitlesVue>
@@ -7,7 +7,7 @@
                     <Button @click="openLoginForm" class="button-text border-round-xl w-5">
                         <template #default>
                             <div class="flex w-12 justify-content-between">
-                                <p class="m-0 font-semibold">log in</p>
+                                <p class="m-0 font-semibold text-sm lg:text-base">log in</p>
                                 <img :src="themeIcon" alt="Custom Icon" style="width: 20px; height: 20px" />
                             </div>
                         </template>
@@ -15,7 +15,7 @@
                     <Button @click="openRegisterForm" class="button-text bg-primary-reverse border-round-xl w-5">
                         <template #default>
                             <div class="flex w-12 justify-content-between">
-                                <p class="m-0 font-semibold">sign up</p>
+                                <p class="m-0 font-semibold text-sm lg:text-base">sign up</p>
                                 <img :src="themeSignIcon" alt="Custom Icon" style="width: 20px; height: 20px" />
                             </div>
                         </template>
@@ -28,14 +28,14 @@
                 v-model:textCl="textClosed"
                 v-model:registerFormOpen="registerFormOpen"
                 v-model:createdForm="createdForm"
-                class="block justify-content-center"
+                class="justify-content-center"
             ></right-panel-register-form>
 
             <right-panel-log-form
                 v-model:textCl="textClosed"
                 v-model:registerFormOpen="loginFormOpen"
                 v-model:createdForm="createdForm"
-                class="block justify-content-center mb-4"
+                class="justify-content-center mb-4"
             ></right-panel-log-form>
         </div>
     </div>

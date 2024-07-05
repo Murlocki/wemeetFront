@@ -1,6 +1,6 @@
 <template>
     <div
-        class="p-2 mx-3 md:ml-4 w-12 md:w-8"
+        class="p-2 w-12 md:w-8"
         style="
             background-color: rgba(123, 122, 122, 0.11);
             width: fit-content;
@@ -12,7 +12,7 @@
             :value="images"
             :numVisible="5"
             :circular="true"
-            containerStyle="max-width: 1280px;min-width:300px;border-radius: 30px"
+            containerStyle="max-width: 1280px;min-width:280px;border-radius: 30px"
             :showItemNavigators="true"
             :showThumbnails="false"
             :showItemNavigatorsOnHover="true"

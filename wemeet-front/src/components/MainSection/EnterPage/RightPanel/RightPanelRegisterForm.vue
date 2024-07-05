@@ -2,15 +2,21 @@
     <transition name="block-transition">
         <div
             v-if="formOpen && textCl"
-            class="shadow-4 mt-2 pb-2"
-            style="border-radius: 20px; min-height: 540px; height: fit-content"
+            class="shadow-4 mt-2 pb-2 bg-primary-reverse flex w-full"
+            style="
+                border-radius: 20px;
+                min-height: 540px;
+                height: fit-content;
+                border: 3px solid white;
+                min-width: 300px;
+            "
         >
             <transition name="forms-create">
-                <div v-if="formCreation" class="flex flex-column justify-content-center align-content-center">
+                <div v-if="formCreation" class="flex flex-column justify-content-center align-content-center w-full">
                     <div class="flex justify-content-between border-bottom-2 border-primary px-3 py-2">
                         <p
                             style="font-family: 'Helvetica Neue', sans-serif"
-                            class="font-bold text-l p-0 m-0 text-center mt-3 mb-2"
+                            class="font-bold text-base md:text-l p-0 m-0 text-center mt-3 mb-2"
                         >
                             sigh up
                         </p>
@@ -25,34 +31,48 @@
                             <img :src="themeBackIcon" alt="Custom Icon" style="width: 20px; height: 20px" />
                         </Button>
                     </div>
-                    <form @submit.prevent="validateRegisterForm">
-                        <div v-for="item in registerFormEnters" v-bind:key="item.id" class="mx-3">
-                            <p class="border-bottom-1 border-primary w-max pr-1 mb-2 ml-3">{{ item.title }}</p>
-                            <div class="flex flex-column gap-1">
-                                <component
-                                    :is="item.component"
-                                    v-model="item.value.value"
-                                    v-bind="item.attributes"
-                                    :invalid="item.id == incorrectField ? true : false"
-                                    required
-                                >
-                                </component>
+                    <div class="flex justify-content-center">
+                        <form @submit.prevent="validateRegisterForm" class="w-11">
+                            <div v-for="item in registerFormEnters" v-bind:key="item.id">
+                                <p class="border-bottom-1 border-primary w-max pr-1 mb-2 ml-3">{{ item.title }}</p>
+                                <div class="flex flex-column gap-1">
+                                    <component
+                                        :is="item.component"
+                                        v-model="item.value.value"
+                                        v-bind="item.attributes"
+                                        :invalid="item.id == incorrectField ? true : false"
+                                        required
+                                    >
+                                    </component>
+                                </div>
+                                <div class="w-full border-bottom-1 border-primary w-11 mt-1"></div>
                             </div>
-                            <div class="w-full border-bottom-1 border-primary w-11 mt-1"></div>
-                        </div>
-                        <div class="flex justify-content-center mt-4">
-                            <Button type="submit" class="w-6" style="border-radius: 20px"
-                                ><template #default>
-                                    <div class="m-1 w-11 flex justify-content-between">
-                                        <p class="m-0 font-medium text-lg">Register</p>
-                                        <img :src="themeIcon" alt="Custom Icon" style="width: 20px; height: 20px" />
-                                    </div> </template
-                            ></Button>
-                        </div>
-                        <div class="flex justify-content-center text-center">
-                            <span class="text-xs mx-2 mt-2">{{ errorMessage }}</span>
-                        </div>
-                    </form>
+                            <div class="flex justify-content-center mt-4">
+                                <Button type="submit" class="w-6" style="border-radius: 20px"
+                                    ><template #default>
+                                        <div class="m-1 flex justify-content-between w-full">
+                                            <p class="m-0 font-medium text-lg">Register</p>
+                                            <div>
+                                                <img
+                                                    :src="themeIcon"
+                                                    alt="Custom Icon"
+                                                    style="width: 20px; height: 20px"
+                                                />
+                                            </div>
+                                        </div> </template
+                                ></Button>
+                            </div>
+                            <div class="flex justify-content-center text-xs text-500">
+                                <span class="mr-1">By registering you agree to</span
+                                ><router-link class="active-link text-500 underline" to="/treat" target="_blank"
+                                    >terms of use</router-link
+                                >
+                            </div>
+                            <div class="flex justify-content-center text-center">
+                                <span class="text-xs mx-2 mt-2 text-red-500">{{ errorMessage }}</span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </transition>
         </div>
@@ -185,12 +205,6 @@ function validateRegisterForm() {
 }
 
 /*Анимация появления формы */
-.block {
-    margin-bottom: 20px;
-    width: 20vh;
-    min-width: 320px;
-    height: 530px;
-}
 .block-transition-enter-active {
     transition: all 2s ease;
 }
@@ -205,5 +219,13 @@ function validateRegisterForm() {
 .block-transition-leave-to {
     transform: translateY(100%);
     opacity: 0;
+}
+
+.active-link {
+    text-decoration: none;
+}
+
+.active-link:hover {
+    text-decoration: none;
 }
 </style>

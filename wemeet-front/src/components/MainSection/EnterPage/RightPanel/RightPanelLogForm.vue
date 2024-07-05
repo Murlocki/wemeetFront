@@ -3,7 +3,13 @@
         <div
             v-if="formOpen && textCl"
             class="shadow-4 bg-primary my-4"
-            style="border-radius: 20px; height: fit-content; min-height: 360px"
+            style="
+                border-radius: 20px;
+                height: fit-content;
+                min-height: 360px;
+                border: 3px solid black;
+                min-width: 300px;
+            "
         >
             <transition name="forms-create">
                 <div v-if="formCreation" class="flex flex-column justify-content-center align-content-center">
@@ -57,7 +63,7 @@
                             ></Button>
                         </div>
                         <div class="flex justify-content-center text-center">
-                            <span class="text-xs mx-2 mt-2">{{ errorMessage }}</span>
+                            <span class="text-xs mx-2 mt-2 text-red-500">{{ errorMessage }}</span>
                         </div>
                     </form>
                 </div>
