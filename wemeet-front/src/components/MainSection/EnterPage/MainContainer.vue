@@ -16,8 +16,8 @@ import RightPanelEnter from './RightPanel/RightPanelEnter.vue'
 <style>
 .grid-background {
     width: 100%;
-    height: 100vh; /* или другая желаемая высота */
-    background-color: white; /* или любой другой цвет фона */
+    height: 100vh;
+    background-color: white;
     background-image: linear-gradient(to right, #e0e0e05e 1px, transparent 1px),
         linear-gradient(to bottom, #e0e0e05e 1px, transparent 1px);
     background-size: 200px 130px;

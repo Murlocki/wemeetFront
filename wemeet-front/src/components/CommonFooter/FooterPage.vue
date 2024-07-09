@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-primary-reverse">
+    <div class="surface-600 h-full" style="flex-grow: 1; overflow-y: auto">
         <div class="surface-600 flex justify-content-center py-4 mt-2">
             <div class="flex justify-content-between align-items-center flex-wrap md:flex-nowrap w-10 lg:w-5">
                 <div class="flex flex-column justify-content-center" style="width: 125px">

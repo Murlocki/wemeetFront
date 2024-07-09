@@ -8,7 +8,7 @@
                     severity="secondary"
                     text
                     class="p-button-lg"
-                    @click="visibleLeft = true"
+                    @click="visibleLeft = !visibleLeft"
                 ></Button>
                 <wemeet-name></wemeet-name>
             </template>
@@ -36,7 +36,7 @@ import { userSettingsStore } from '../../store/userSettingsStore'
 
 import { ref } from 'vue'
 const store = userSettingsStore()
-const visibleLeft = ref(true)
+const visibleLeft = ref(false)
 </script>
 
 <style></style>

@@ -4,7 +4,8 @@ import MainContainer from '../components/MainSection/EnterPage/MainContainer.vue
 import AboutPage from '../components/MainSection/AboutPage/AboutPage.vue'
 import HelpPage from '../components/MainSection/HelpPage/HelpPage.vue'
 import TreatPageMain from '../components/MainSection/TreatPage/TreatPageMain.vue'
-import FullCalendar from '../components/MainSection/Calendar/FullCalendar.vue'
+import FullCalendar from '../components/MainSection/CalendarPage/Calendar/FullCalendar.vue'
+import LoggedPage from '../components/MainSection/CalendarPage/LoggedPage.vue'
 const routes = [
     {
         path: '',
@@ -15,22 +16,28 @@ const routes = [
                 component: MainContainer,
             },
             {
-                path: '/about',
+                path: 'about',
                 component: AboutPage,
             },
             {
-                path: '/help',
+                path: 'help',
                 component: HelpPage,
             },
             {
-                path: '/treat',
+                path: 'treat',
                 component: TreatPageMain,
             },
         ],
     },
     {
         path: '/home',
-        component: FullCalendar,
+        component: LoggedPage,
+        children: [
+            {
+                path: 'timetable',
+                component: FullCalendar,
+            },
+        ],
     },
 ]
 const router = new createRouter({

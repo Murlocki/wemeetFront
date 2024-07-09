@@ -1,6 +1,7 @@
 <template>
     <div
         class="flex flex-column align-content-center w-10 mx-5 mt-2 pt-3 border-round-lg shadow-5 border-solid border-200"
+        style="min-height: 80vh"
     >
         <p class="text-center font-semibold text-2xl">Most asked questions</p>
         <div class="flex justify-content-center">
