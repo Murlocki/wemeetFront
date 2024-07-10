@@ -33,5 +33,5 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
     const isLoggged = ref(true)
     /*Короче надо как-то сделать чтобы можно было хранить ключи кучи пользователей на 1 компе */
     const userLogin = ref('login')
-    return { darkModeOn, choosedStorage, chooseStorage, setVisualMode, getJwt, setJwtKey, isLoggged }
+    return { darkModeOn, choosedStorage, chooseStorage, setVisualMode, getJwt, setJwtKey, isLoggged, userLogin }
 })

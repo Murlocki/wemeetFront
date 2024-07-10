@@ -11,6 +11,7 @@ import Dialog from 'primevue/dialog'
 const visibleForm = ref(false)
 
 import { ref } from 'vue'
+import { eventStore } from '../../../../store/eventStore'
 const calendar = ref()
 
 /*Обрабатываем клики на дни */
@@ -34,33 +35,11 @@ const handleDateClick = function (arg) {
 }
 
 /*Открытие формы изменения ивента */
-const currentTitle = ref()
-const currentDescription = ref()
-const currentStartDate = ref()
-const currentEndDate = ref()
-const currentTextColor = ref()
-const currentBackgroundColor = ref()
-const currentBorderColor = ref()
-const currentStartHasHours = ref()
-const currentEndHasHours = ref()
-
+const currentEvent = ref({})
 const openForm = ref(false)
 const handleEventClick = function (info) {
     console.log(info.event)
-    console.log(info.event.borderColor)
-    console.log(info.event.backgroundColor)
-    console.log(info.event.textColor)
-    console.log(info.event.extendedProps.description)
-
-    currentTitle.value = info.event.title
-    currentDescription.value = info.event.extendedProps.description
-    currentStartDate.value = info.event.start
-    currentEndDate.value = info.event.end
-    currentTextColor.value = info.event.textColor
-    currentBackgroundColor.value = info.event.backgroundColor
-    currentBorderColor.value = info.event.borderColor
-    currentStartHasHours.value = info.event.extendedProps.startHasHours
-    currentEndHasHours.value = info.event.extendedProps.endHasHours
+    currentEvent.value = info.event
     openForm.value = true
 
     visibleForm.value = true
@@ -74,6 +53,9 @@ const handleEventResize = function (info) {
     // Handle event resize
     console.log('Event resized:', info.event)
 }
+
+const store = eventStore()
+
 const calendarOptions = ref({
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
     headerToolbar: {
@@ -82,18 +64,12 @@ const calendarOptions = ref({
     },
     nowIndicator: true,
     contentHeight: 'auto',
-    customButtons: {
-        prevCustom: {
-            text: 'Add new event',
-            click: function () {
-                console.log(calendar.value.getApi())
-                if (calendar.value) {
-                    let calendarApi = calendar.value.getApi()
-                    calendarApi.prev()
-                }
-            },
-            style: 'background-color:none !important',
-        },
+    timeZone: 'local',
+    defaultTimedEventDuration: '00:00',
+    eventTimeFormat: {
+        hour: '2-digit',
+        minute: '2-digit',
+        meridiem: false,
     },
     initialView: 'dayGridMonth',
     dateClick: handleDateClick,
@@ -102,23 +78,7 @@ const calendarOptions = ref({
     eventDrop: handleEventDrop,
     eventResize: handleEventResize,
 
-    events: [
-        { title: 'event 1', start: '2024-07-06T10:30:00' },
-        { title: 'event 2', start: '2024-07-06', end: '2024-07-09T00:00:00' },
-        { title: 'event 3', start: '2024-07-06' },
-        {
-            title: 'event 4',
-            start: '2024-07-06',
-            end: '',
-            startHasHours: false,
-            endHasHours: false,
-            description: 'aaddddds',
-            eventid: '12',
-            backgroundColor: '#ff0000',
-            borderColor: '#ff0000',
-            textColor: '#000000',
-        },
-    ],
+    events: store.$state.events,
     viewClassNames: () => {
         title.value = calendar.value.getApi().view.title
     },
@@ -153,15 +113,8 @@ const title = ref()
             <event-form
                 class="bg-primary-reverse"
                 style="height: fit-content"
-                :title="currentTitle"
-                :description="currentDescription"
-                :start-date="currentStartDate"
-                :end-date="currentEndDate"
-                :color="currentTextColor"
-                :backgroundColor="currentBackgroundColor"
-                :borderColor="currentBorderColor"
-                :startHasHours="currentStartHasHours"
-                :endHasHours="currentEndHasHours"
+                :event="currentEvent"
+                v-model:dialog-visible="visibleForm"
             ></event-form>
         </Dialog>
         <div style="border-radius: 16px">
