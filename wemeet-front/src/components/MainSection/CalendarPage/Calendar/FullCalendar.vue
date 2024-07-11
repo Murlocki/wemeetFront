@@ -46,6 +46,7 @@ const handleEventClick = function (info) {
 
         openForm.value = true
         visibleForm.value = true
+    }
 }
 
 /*Перетаскивание события */
@@ -106,7 +107,7 @@ const calendarOptions = ref({
     editable: true,
     eventClick: handleEventClick,
     eventDrop: handleEventDrop,
-
+    dayMaxEventRows: 3,
     events: store.$state.events,
     viewClassNames: () => {
         title.value = calendar.value.getApi().view.title
@@ -186,6 +187,11 @@ const title = ref()
 } */
 
 /*Настройки ивентов */
+.fc-more-link,
+.fc-daygrid-more-link,
+.fc-daygrid-day-bottom {
+    overflow: hidden;
+}
 .fc-event-title {
     white-space: nowrap;
     overflow: hidden;
