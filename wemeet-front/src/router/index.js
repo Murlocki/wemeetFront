@@ -6,6 +6,7 @@ import HelpPage from '../components/MainSection/HelpPage/HelpPage.vue'
 import TreatPageMain from '../components/MainSection/TreatPage/TreatPageMain.vue'
 import FullCalendar from '../components/MainSection/CalendarPage/Calendar/FullCalendar.vue'
 import LoggedPage from '../components/MainSection/CalendarPage/LoggedPage.vue'
+import Homepage from '../components/MainSection/CalendarPage/HomePage/Homepage.vue'
 const routes = [
     {
         path: '',
@@ -33,6 +34,10 @@ const routes = [
         path: '/home',
         component: LoggedPage,
         children: [
+            {
+                path: '',
+                component: Homepage,
+            },
             {
                 path: 'timetable',
                 component: FullCalendar,
