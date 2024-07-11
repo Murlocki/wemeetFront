@@ -1,5 +1,5 @@
 <template>
-    <div class="m-0 flex flex-column bg-primary-reverse">
+    <div class="m-0 flex flex-column bg-primary-reverse" style="height: fit-content">
         <div class="flex justify-content-center w-screen bg-primary-reverse" style="flex: 1">
             <div
                 class="flex w-11 justify-content-center align-content-center bg-primary-reverse mb-2"

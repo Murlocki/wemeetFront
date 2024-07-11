@@ -9,7 +9,7 @@ const calendar = ref()
 
 /*Настрока календаря */
 const store = eventStore()
-
+const title = ref()
 const calendarOptions = ref({
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
     headerToolbar: {
@@ -22,23 +22,39 @@ const calendarOptions = ref({
     defaultTimedEventDuration: '00:00',
     initialView: 'timeGridDay',
     events: store.$state.events,
+    viewClassNames: () => {
+        title.value = calendar.value.getApi().view.title
+    },
 })
 </script>
 <template>
-    <div style="min-height: 700px" class="flex flex-column justify-content-center w-full md:w-10 mt-3">
-        <div class="bg-primary-reverse text-color text-center text-3xl lg:text-5xl h-full w-full mb-1">
-            <span>Your events for today</span>
-        </div>
-        <div style="border-radius: 16px">
-            <FullCalendar
-                ref="calendar"
-                class="bg-primary-reverse text-color text-md lg:text-base h-full w-full"
-                :options="calendarOptions"
-            />
+    <div style="min-height: 700px; height: fit-content" class="flex justify-content-center w-full mt-3">
+        <div class="flex flex-column justify-content-center w-full md:w-10 mb-5">
+            <div class="text-color text-2xl md:text-3xl lg:text-5xl h-full w-full mb-1">
+                <span>Your events for {{ title }}</span>
+                <div class="w-12 md:w-10 lg:w-9 border-1"></div>
+            </div>
+            <div style="border-radius: 16px">
+                <FullCalendar
+                    ref="calendar"
+                    class="text-color border-900 text-md lg:text-base h-full w-full"
+                    :options="calendarOptions"
+                />
+            </div>
         </div>
     </div>
 </template>
 <style>
+.grid-background {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    background-image: linear-gradient(to right, #e0e0e05e 1px, transparent 1px),
+        linear-gradient(to bottom, #e0e0e05e 1px, transparent 1px);
+    background-size: 200px 130px;
+    background-position: -1px -1px;
+}
+
 .fc-scrollgrid {
     border-radius: 16px 16px 0px 0px !important;
 }
