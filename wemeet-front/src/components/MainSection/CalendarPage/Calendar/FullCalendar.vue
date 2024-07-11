@@ -17,6 +17,7 @@ const calendar = ref()
 /*Обрабатываем клики на дни */
 const prevView = ref(['dayGridMonth'])
 const handleNonDayClick = function (arg) {
+    console.log(arg)
     if (calendar.value.getApi().view.type == 'dayGridMonth') prevView.value = []
     prevView.value = [...prevView.value, calendar.value.getApi().view.type]
     calendar.value.getApi().changeView('timeGridDay')
@@ -37,23 +38,57 @@ const handleDateClick = function (arg) {
 /*Открытие формы изменения ивента */
 const currentEvent = ref({})
 const openForm = ref(false)
+const editingMode = ref(false)
 const handleEventClick = function (info) {
-    console.log(info.event)
-    currentEvent.value = info.event
-    openForm.value = true
+    if (calendar.value.getApi().view.type == 'timeGridDay') {
+        editingMode.value = info.event ? true : false
+        currentEvent.value = info.event
 
-    visibleForm.value = true
+        openForm.value = true
+        visibleForm.value = true
 }
 
+/*Перетаскивание события */
+const formatDate = function (date, hasHours) {
+    const dateFormat = new Date(date.toString().split('GMT')[0] + ' UTC').toISOString()
+    return hasHours ? dateFormat.slice(0, 19) : dateFormat.slice(0, 10)
+}
+const formatEndDate = function (end) {
+    end.setDate(end.value.getDate() + 1)
+    end.toUTCString()
+    return end
+}
 const handleEventDrop = function (info) {
     // Handle event drop
     console.log('Event dropped:', info)
-}
-const handleEventResize = function (info) {
-    // Handle event resize
-    console.log('Event resized:', info.event)
+
+    const startDateFormat = formatDate(info.event.start, info.event.extendedProps.startHasHours)
+    const endDateFormat = info.event.end
+        ? formatDate(
+              info.event.extendedProps.endHasHours ? info.event.end : formatEndDate(info.event.end),
+              info.event.extendedProps.endHasHours,
+          )
+        : ''
+
+    const updatedEvent = {
+        title: info.event.title,
+        start: startDateFormat,
+        end: endDateFormat,
+        startHasHours: info.event.extendedProps.startHasHours,
+        endHasHours: info.event.extendedProps.endHasHours,
+        description: info.event.extendedProps.description,
+        eventId: info.event.extendedProps.eventId,
+        backgroundColor: info.event.backgroundColor,
+        borderColor: info.event.borderColor,
+        textColor: info.event.textColor,
+    }
+    store.updateEvent(updatedEvent, updatedEvent.eventId)
+
+    console.log(store.$state.events)
+    console.log(calendarOptions.value.events)
 }
 
+/*Настрока календаря */
 const store = eventStore()
 
 const calendarOptions = ref({
@@ -66,17 +101,11 @@ const calendarOptions = ref({
     contentHeight: 'auto',
     timeZone: 'local',
     defaultTimedEventDuration: '00:00',
-    eventTimeFormat: {
-        hour: '2-digit',
-        minute: '2-digit',
-        meridiem: false,
-    },
     initialView: 'dayGridMonth',
     dateClick: handleDateClick,
     editable: true,
     eventClick: handleEventClick,
     eventDrop: handleEventDrop,
-    eventResize: handleEventResize,
 
     events: store.$state.events,
     viewClassNames: () => {
@@ -100,7 +129,12 @@ const title = ref()
                     v-tooltip.bottom="'Back'"
                     @click="returnPrevView"
                 ></Button>
-                <Button icon="pi pi-plus" class="border-circle" v-tooltip.bottom="'Add new event'"></Button>
+                <Button
+                    icon="pi pi-plus"
+                    class="border-circle"
+                    v-tooltip.bottom="'Add new event'"
+                    @click="handleEventClick"
+                ></Button>
             </div>
         </div>
         <Dialog
@@ -115,12 +149,13 @@ const title = ref()
                 style="height: fit-content"
                 :event="currentEvent"
                 v-model:dialog-visible="visibleForm"
+                :editing-mode="editingMode"
             ></event-form>
         </Dialog>
         <div style="border-radius: 16px">
             <FullCalendar
                 ref="calendar"
-                class="bg-primary-reverse text-color text-sm md:text-md lg:text-base h-full w-full"
+                class="bg-primary-reverse text-color text-md lg:text-base h-full w-full"
                 :options="calendarOptions"
             />
         </div>
@@ -142,11 +177,13 @@ const title = ref()
 .fc-day-sun {
     color: red;
 }
-
-.fc-day-today {
+.fc-daygrid-event-dot {
+    display: none;
+}
+/* .fc-day-today {
     background-color: var(--primary-color) !important;
     color: var(--primary-color-text) !important;
-}
+} */
 
 /*Настройки ивентов */
 .fc-event-title {

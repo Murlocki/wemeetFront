@@ -9,7 +9,7 @@
                         type="text"
                         v-model="eventTitle"
                         :placeholder="eventTitle.toString()"
-                        require
+                        required
                         style="border-radius: 15px"
                         class="bg-primary-reverse text-base w-12"
                     ></InputText>
@@ -32,7 +32,6 @@
                         id="startDate"
                         v-model:date="eventStartDate"
                         :hasHours="eventStartHasHours"
-                        require
                     ></date-picker>
                     <small id="startDate">Enter your event start date.</small>
                     <div class="w-full border-bottom-1 border-primary-reverse w-11 mt-1"></div>
@@ -112,6 +111,7 @@ import ColorPicker from 'primevue/colorpicker'
 import Checkbox from 'primevue/checkbox'
 import Button from 'primevue/button'
 import { eventStore } from '../../../../store/eventStore'
+import EventAddFormValidator from '../../../../validators/EventAddFormValidator'
 
 /*Функции формитирования дат */
 const formatDate = function (date, hasHours) {
@@ -138,11 +138,17 @@ const formatColor = function (color) {
 
 /*Функция принятия формы */
 const errorMessage = ref('')
+const formValid = EventAddFormValidator
 const acceptForm = function () {
-    errorMessage.value =
-        eventEndDate.value && new Date(eventEndDate.value) < new Date(eventStartDate.value)
-            ? 'Неверная дата окончания'
-            : ''
+    errorMessage.value = ''
+    if (!formValid.validateDate(eventStartDate.value)) {
+        errorMessage.value = 'Неверная дата начала'
+        return
+    }
+    if (!formValid.validateEndDate(eventStartDate.value, eventEndDate.value)) {
+        errorMessage.value = 'Неверная дата окончания'
+        return
+    }
 
     if (!errorMessage.value) {
         const startDateFormat = formatDate(eventStartDate.value, eventStartHasHours.value)
@@ -163,31 +169,48 @@ const acceptForm = function () {
         }
 
         console.log(newEvent)
-        store.updateEvent(newEvent, eventId.value)
+        if (props.editingMode) store.updateEvent(newEvent, eventId.value)
+        else store.createEvent(newEvent)
         visibleForm.value = false
-        console.log(store.$state.events)
     }
 }
 
 const props = defineProps({
     event: Object,
+    editingMode: Boolean,
 })
 
 const visibleForm = defineModel('dialogVisible')
 
 const event = props.event
-console.log(event)
 
-const eventTitle = ref(event.title)
-const eventStartDate = ref(event.start)
-const eventEndDate = ref(event.end ? backReformEndDate() : '')
-const eventDescription = ref(event.extendedProps.description ? event.extendedProps.description : '')
-const eventTextColor = ref(event.textColor)
-const eventBackColor = ref(event.backgroundColor)
-const eventBorderColor = ref(event.borderColor)
-const eventStartHasHours = ref(event.extendedProps.startHasHours)
-const eventEndHasHours = ref(event.extendedProps.endHasHours)
-const eventId = ref(event.extendedProps.eventId)
+const initRefs = function () {
+    if (props.editingMode) {
+        eventTitle.value = event.title
+        eventStartDate.value = event.start
+        eventEndDate.value = event.end ? backReformEndDate() : ''
+        eventDescription.value = event.extendedProps.description ? event.extendedProps.description : ''
+        eventTextColor.value = event.textColor
+        eventBackColor.value = event.backgroundColor
+        eventBorderColor.value = event.borderColor
+        eventStartHasHours.value = event.extendedProps.startHasHours
+        eventEndHasHours.value = event.extendedProps.endHasHours
+        eventId.value = event.extendedProps.eventId
+    }
+}
+
+const eventTitle = ref('')
+const eventStartDate = ref('')
+const eventEndDate = ref('')
+const eventDescription = ref('')
+const eventTextColor = ref('')
+const eventBackColor = ref('')
+const eventBorderColor = ref('')
+const eventStartHasHours = ref(false)
+const eventEndHasHours = ref(false)
+const eventId = ref('')
+
+initRefs()
 
 const store = eventStore()
 </script>

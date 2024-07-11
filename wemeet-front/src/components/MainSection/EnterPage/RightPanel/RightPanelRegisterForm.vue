@@ -164,6 +164,7 @@ const themeBackIcon = computed(() => {
 const errorMessage = ref('')
 function validateRegisterForm() {
     const regFormValidator = RegisterFormValidator
+    errorMessage.value = ''
     if (!regFormValidator.validateEmail(email.value)) {
         errorMessage.value = 'Incorrect email'
         incorrectField.value = 0

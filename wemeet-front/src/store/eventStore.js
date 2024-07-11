@@ -54,8 +54,22 @@ export const eventStore = defineStore('eventStore', () => {
 
     const updateEvent = function (newEvent, currentEventId) {
         const index = events.value.findIndex((it) => it.eventId == currentEventId)
-        events.value[index] = { ...events.value[index], ...newEvent }
+        if (index != -1) {
+            events.value[index] = { ...events.value[index], ...newEvent }
+            events.value = [...events.value]
+        }
+        console.log(events.value[index])
+        console.log(events.value)
+        /*Тут дальше типо запрос будет к тебе */
     }
 
-    return { events, updateEvent }
+    const createEvent = function (newEvent) {
+        const eventId = Math.max(...events.value.map((item) => item.eventId)) + 1
+
+        newEvent.id = eventId
+        events.value.push(newEvent)
+        /*Ну тут типо тоже должен быть запрос */
+    }
+
+    return { events, updateEvent, createEvent }
 })
