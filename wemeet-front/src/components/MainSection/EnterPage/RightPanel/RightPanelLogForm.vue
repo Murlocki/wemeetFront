@@ -16,7 +16,7 @@
                     <div class="flex justify-content-between border-bottom-2 border-primary-reverse px-3 py-2">
                         <p
                             style="font-family: 'Helvetica Neue', sans-serif"
-                            class="font-bold text-l p-0 m-0 text-center mt-3 mb-2 bg-primary"
+                            class="font-bold text-l p-0 m-0 text-center mt-3 mb-2"
                         >
                             log in
                         </p>
@@ -33,7 +33,7 @@
                     </div>
                     <form @submit.prevent="validateRegisterForm">
                         <div v-for="item in registerFormEnters" v-bind:key="item.id" class="mx-3">
-                            <p class="border-bottom-1 border-primary-reverse w-max pr-1 mb-2 ml-3 bg-primary">
+                            <p class="border-bottom-1 border-primary-reverse w-max pr-1 mb-2 ml-3">
                                 {{ item.title }}
                             </p>
                             <div class="flex flex-column gap-1">

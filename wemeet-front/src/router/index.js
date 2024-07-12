@@ -6,7 +6,8 @@ import HelpPage from '../components/MainSection/HelpPage/HelpPage.vue'
 import TreatPageMain from '../components/MainSection/TreatPage/TreatPageMain.vue'
 import FullCalendar from '../components/MainSection/CalendarPage/Calendar/FullCalendar.vue'
 import LoggedPage from '../components/MainSection/CalendarPage/LoggedPage.vue'
-import Homepage from '../components/MainSection/CalendarPage/HomePage/Homepage.vue'
+import Homepage from '../components/MainSection/HomePage/Homepage.vue'
+import Settings from '../components/SettingsPage/Settings.vue'
 const routes = [
     {
         path: '',
@@ -41,6 +42,10 @@ const routes = [
             {
                 path: 'timetable',
                 component: FullCalendar,
+            },
+            {
+                path: 'settings',
+                component: Settings,
             },
         ],
     },

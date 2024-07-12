@@ -6,7 +6,7 @@
                     <p class="font-semibold text-primary-reverse text-center m-0">Wemeet Inc(c)</p>
                     <div class="flex justify-content-center">
                         <div v-for="item in socialsPath" :key="item.id">
-                            <href><img :src="item.path" alt="Custom Icon" style="width: 30px; height: 30px" /></href>
+                            <a href=""><img :src="item.path" alt="Custom Icon" style="width: 30px; height: 30px" /></a>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import Cookies from 'js-cookie'
+import avatarTest from '/src/assets/DefaultUser/avatarTest.png'
 export const userSettingsStore = defineStore('userSettingsStore', () => {
     const darkModeOn = ref(false)
 
@@ -33,5 +34,26 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
     const isLoggged = ref(true)
     /*Короче надо как-то сделать чтобы можно было хранить ключи кучи пользователей на 1 компе */
     const userLogin = ref('login')
-    return { darkModeOn, choosedStorage, chooseStorage, setVisualMode, getJwt, setJwtKey, isLoggged, userLogin }
+
+    const userAvatar = ref('/src/assets/DefaultUser/defaultUser.svg')
+
+    // const userAvatar = ref()
+    // fetch('/src/assets/DefaultUser/avatarTest.png')
+    //     .then((response) => response.blob())
+    //     .then((blob) => {
+    //         userAvatar.value = URL.createObjectURL(blob)
+    //         console.log(userAvatar.value)
+    //     })
+    // console.log(userAvatar.value)
+    return {
+        darkModeOn,
+        choosedStorage,
+        chooseStorage,
+        setVisualMode,
+        getJwt,
+        setJwtKey,
+        isLoggged,
+        userLogin,
+        userAvatar,
+    }
 })

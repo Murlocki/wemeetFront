@@ -16,13 +16,7 @@
                 <wemeet-logo></wemeet-logo>
             </template>
         </Toolbar>
-        <Sidebar v-model:visible="visibleLeft" header="Main menu" class="p-sidebar-sm" role="region">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat.
-            </p>
-        </Sidebar>
+        <CommonSidebar v-model:visible="visibleLeft"></CommonSidebar>
     </div>
 </template>
 
@@ -31,11 +25,11 @@ import WemeetName from './CommonElements/WemeetName.vue'
 import WemeetLogo from './CommonElements/WemeetLogo.vue'
 import Toolbar from 'primevue/toolbar'
 import Button from 'primevue/button'
-import Sidebar from 'primevue/sidebar'
 import { userSettingsStore } from '../../store/userSettingsStore'
+import CommonSidebar from '../CommonSidebar/CommonSidebar.vue'
 
-import { ref } from 'vue'
 const store = userSettingsStore()
+import { ref } from 'vue'
 const visibleLeft = ref(false)
 </script>
 

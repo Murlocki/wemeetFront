@@ -2,7 +2,7 @@
     <transition name="block-transition">
         <div
             v-if="formOpen && textCl"
-            class="shadow-4 mt-2 pb-2 bg-primary-reverse flex w-full"
+            class="shadow-4 my-4 pb-2 bg-primary-reverse flex w-8"
             style="
                 border-radius: 20px;
                 min-height: 540px;

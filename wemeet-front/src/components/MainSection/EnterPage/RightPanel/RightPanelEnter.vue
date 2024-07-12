@@ -1,5 +1,5 @@
 <template>
-    <div class="p-1 flex flex-column justify-content-center w-7 md:w-4 align-content-center" style="height: 530px">
+    <div class="p-1 flex flex-column justify-content-center w-10 md:w-4 align-content-center" style="min-height: 530px">
         <transition name="closeRightText">
             <div v-if="!(loginFormOpen || registerFormOpen)">
                 <RightPanelTitlesVue class="mb-5"></RightPanelTitlesVue>

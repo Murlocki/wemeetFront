@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="min-width: 300px">
         <div class="mb-5">
             <p style="font-family: 'AlbraTRIAL-Regular', sans-serif" class="text-lg lg:text-2xl text-primary m-0 -mb-3">
                 make it <span class="font-italic">easy</span> with

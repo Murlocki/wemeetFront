@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import { ref } from 'vue'
-import { eventStore } from '../../../../store/eventStore'
+import { eventStore } from '../../../store/eventStore'
 const calendar = ref()
 
 /*Настрока календаря */
