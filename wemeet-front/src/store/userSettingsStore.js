@@ -3,15 +3,17 @@ import { computed, ref } from 'vue'
 import Cookies from 'js-cookie'
 import avatarTest from '/src/assets/DefaultUser/avatarTest.png'
 export const userSettingsStore = defineStore('userSettingsStore', () => {
+    //Выбор темы
     const darkModeOn = ref(false)
+    function setVisualMode() {
+        darkModeOn.value = !darkModeOn.value
+    }
 
+    //Выбор хранилища для jwt ключа
     const storageChose = localStorage.getItem('storageChose')
     const storageChoseCookie = Cookies.get('storageChose')
 
     const choosedStorage = ref(storageChose || storageChoseCookie ? true : false)
-    function setVisualMode() {
-        darkModeOn.value = !darkModeOn.value
-    }
 
     const storage = ref()
 
@@ -33,9 +35,51 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
 
     const isLoggged = ref(true)
     /*Короче надо как-то сделать чтобы можно было хранить ключи кучи пользователей на 1 компе */
-    const userLogin = ref('login')
+    const userData = ref({
+        userLogin: 'loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
+        userFirstName: 'kir',
+        userMiddleName: 'kor',
+        userLastName: 'ov',
+        userEmail: 'kkeekekek@gmail.com',
+        companyName: '',
+        phoneNumber: '',
+        birthDate: '',
+        address: '',
+        userAvatar: '/src/assets/DefaultUser/defaultUser.svg',
+        userProfileBack: '',
+    })
+    const userDataNames = ref({
+        userLogin: 'Username',
+        userFirstName: 'First name',
+        userMiddleName: 'Middle name',
+        userLastName: 'Last name',
+        userEmail: 'Email',
+        companyName: 'Company name',
+        phoneNumber: 'Phone number',
+        birthDate: 'Birth date',
+        address: 'Physical address',
+        userAvatar: 'User avatar',
+        userProfileBack: 'User profile background',
+    })
 
-    const userAvatar = ref('/src/assets/DefaultUser/defaultUser.svg')
+    function setUserData(newValue, valueKey) {
+        userData.value[valueKey] = newValue
+    }
+    // const userLogin = ref('loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
+
+    // //Методы для аватара
+    // const userAvatar = ref('/src/assets/DefaultUser/defaultUser.svg')
+
+    // function setAvatar(file) {
+    //     userAvatar.value = file
+    // }
+
+    // //Методы для фона
+    // const userProfileBack = ref(null)
+    // function setProfileBack(file) {
+    //     console.log(file)
+    //     userProfileBack.value = file
+    // }
 
     // const userAvatar = ref()
     // fetch('/src/assets/DefaultUser/avatarTest.png')
@@ -47,13 +91,16 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
     // console.log(userAvatar.value)
     return {
         darkModeOn,
+        setVisualMode,
+
         choosedStorage,
         chooseStorage,
-        setVisualMode,
         getJwt,
         setJwtKey,
+
         isLoggged,
-        userLogin,
-        userAvatar,
+        userData,
+        userDataNames,
+        setUserData,
     }
 })

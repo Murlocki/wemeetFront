@@ -32,13 +32,23 @@
                 <div class="mt-auto">
                     <hr class="mx-3 border-top-1 border-none surface-border" />
                     <Button
-                        class="w-12 h-12 border-none border-noround flex justify-content-center"
-                        style="background-color: inherit"
+                        class="w-12 h-12 border-none border-noround flex justify-content-start"
+                        :style="back"
                         @click="router.push('/home/settings')"
                     >
-                        <div class="w-5 flex justify-content-between align-items-center">
-                            <img :src="store.$state.userAvatar" width="45" height="45" />
-                            <span class="text-color text-2xl">{{ store.$state.userLogin }}</span>
+                        <div class="flex align-items-center w-12 mb-2">
+                            <Avatar
+                                :image="store.$state.userData.userAvatar"
+                                class="mr-3 border-1 border-primary"
+                                size="xlarge"
+                                shape="circle"
+                            />
+                            <span
+                                class="text-color text-2xl"
+                                style="overflow: hidden; text-overflow: ellipsis; width: 70%"
+                            >
+                                {{ store.$state.userData.userLogin }}
+                            </span>
                         </div>
                     </Button>
                 </div>
@@ -57,6 +67,7 @@ import { imagePath, wemeetLogoWhite } from '@assets/index.js'
 import Accordion from 'primevue/accordion'
 import AccordionTab from 'primevue/accordiontab'
 import { useRouter } from 'vue-router'
+import Avatar from 'primevue/avatar'
 
 const router = useRouter()
 
@@ -113,6 +124,14 @@ const sidebarElements = [
         ],
     },
 ]
+
+const back = computed(() => {
+    return store.$state.userData.userProfileBack
+        ? "background-size: cover;background-position: center;background-image:url('" +
+              store.$state.userData.userProfileBack +
+              "')"
+        : 'background-color:inherit'
+})
 </script>
 
 <style></style>
