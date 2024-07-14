@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-column justify-content-between">
-        <div class="flex flex-column w-5">
-            <span>{{ props.title }}</span>
+        <div class="mb-2 border-bottom-1" style="width: fit-content">
+            <span class="text-lg lg:text-2xl">{{ props.title }}</span>
         </div>
         <div class="flex justify-content-between w-12">
             <InputText :placeholder="inputValue" v-model="inputValue" class="w-7" :disabled="!openEditor" />
@@ -16,6 +16,7 @@
                 </transition>
                 <transition name="accept-appear">
                     <Button
+                        @click="acceptEditingMode"
                         v-if="openEditingButtons"
                         class="border-circle custom-button md:p-button-lg"
                         icon="pi pi-check"
@@ -42,7 +43,7 @@ import Button from 'primevue/button'
 const props = defineProps({
     title: String,
     acceptFunction: Function,
-    originalValue: Object,
+    originalValue: String,
 })
 
 const inputValue = ref(props.originalValue)
@@ -68,6 +69,15 @@ const closeEditingMode = function () {
         computedFlex.value = 'justify-content-end'
     }, 1000)
     inputValue.value = props.originalValue
+}
+//Принятие редактирования
+const acceptEditingMode = function () {
+    openEditingButtons.value = false
+    setTimeout(() => {
+        openEditor.value = false
+        computedFlex.value = 'justify-content-end'
+    }, 1000)
+    props.acceptFunction(inputValue.value)
 }
 </script>
 

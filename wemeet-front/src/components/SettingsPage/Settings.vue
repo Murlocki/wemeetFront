@@ -4,7 +4,11 @@
             <img :src="back" alt="fff" />
         </div>
         <div class="w-full mb-6">
-            <input-editor :originalValue="store.$state.userData.userLogin" title="Username"></input-editor>
+            <input-editor
+                :originalValue="store.$state.userData.userLogin"
+                :acceptFunction="settingUserName"
+                title="Username"
+            ></input-editor>
         </div>
         <div class="flex justify-content-between w-full mb-6">
             <span class="text-2xl border-bottom-1">Profile avatar</span>
@@ -39,6 +43,10 @@ const store = userSettingsStore()
 const back = computed(() => {
     return store.$state.userData.userProfileBack
 })
+
+const settingUserName = function (newValue) {
+    store.setUserData(newValue, 'userLogin')
+}
 
 const textValues = ref([
     {
