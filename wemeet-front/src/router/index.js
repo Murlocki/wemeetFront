@@ -8,7 +8,12 @@ import FullCalendar from '../components/MainSection/CalendarPage/Calendar/FullCa
 import LoggedPage from '../components/MainSection/CalendarPage/LoggedPage.vue'
 import Homepage from '../components/MainSection/HomePage/Homepage.vue'
 import Settings from '../components/SettingsPage/Settings.vue'
+import UserPage from '../components/MainSection/UserPage/UserPage.vue'
 const routes = [
+    {
+        path: '/users/:id',
+        component: UserPage,
+    },
     {
         path: '',
         component: EnterPage,

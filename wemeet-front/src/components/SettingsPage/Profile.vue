@@ -10,14 +10,14 @@
             <div class="flex justify-content-start align-items-end w-10 md:w-7 p-0 m-0">
                 <div class="flex justify-content-center align-items-center mr-3" style="margin-top: -100%">
                     <Avatar
-                        :image="store.$state.userData.userAvatar"
+                        :image="props.userAvatar"
                         class="border-1 border-primary bg-primary"
                         style="width: 90px; height: 90px; z-index: 2"
                         shape="circle"
                     ></Avatar>
                 </div>
                 <span class="font-bold text-xl" style="overflow: hidden; text-overflow: ellipsis; width: 200px">
-                    {{ store.$state.userData.userLogin }}
+                    {{ props.userUsername }}
                 </span>
             </div>
             <Button class="border-circle bg-primary-reverse" icon="pi pi-inbox" />
@@ -27,12 +27,18 @@
 
 <script setup>
 import Avatar from 'primevue/avatar'
-import { userSettingsStore } from '../../store/userSettingsStore'
 import Button from 'primevue/button'
 import { computed } from 'vue'
-const store = userSettingsStore()
+
+const props = defineProps({
+    userProfileBack: Object,
+    userAvatar: Object,
+    userUsername: String,
+    userId: Number,
+})
+
 const back = computed(() => {
-    return store.$state.userData.userProfileBack
+    return props.userProfileBack
 })
 </script>
 

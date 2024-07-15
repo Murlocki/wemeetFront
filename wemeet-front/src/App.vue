@@ -10,7 +10,7 @@ import FooterPage from './components/CommonFooter/FooterPage.vue'
         <div style="position: sticky; top: 0; z-index: 99">
             <enter-header class="h-full"></enter-header>
         </div>
-        <div><router-view></router-view></div>
+        <div class="flex justify-content-center"><router-view></router-view></div>
         <footer-page></footer-page>
     </div>
 </template>

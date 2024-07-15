@@ -1,6 +1,11 @@
 <template>
     <div class="w-12 md:w-9 lg:w-7 shadow-2 mt-4 mb-4" style="border-radius: 15px">
-        <profile class="mb-4"></profile>
+        <profile
+            :user-profile-back="store.$state.userData.userProfileBack"
+            :userUsername="store.$state.userData.userLogin"
+            :user-avatar="store.$state.userData.userAvatar"
+            class="mb-4"
+        ></profile>
         <div class="w-full mb-6 px-3 md:px-4" v-for="elem in textValues" :key="elem.id">
             <component :is="elem.component" v-bind="elem.attributes"></component>
         </div>
@@ -154,7 +159,7 @@ const textValues = [
         },
     },
     {
-        id: 3,
+        id: 4,
         component: InputEditor,
         attributes: {
             title: 'User email',
@@ -163,7 +168,7 @@ const textValues = [
         },
     },
     {
-        id: 4,
+        id: 5,
         component: InputEditor,
         attributes: {
             title: 'Address',
@@ -172,7 +177,7 @@ const textValues = [
         },
     },
     {
-        id: 5,
+        id: 6,
         component: InputEditor,
         attributes: {
             title: 'Company name',
@@ -181,7 +186,7 @@ const textValues = [
         },
     },
     {
-        id: 6,
+        id: 7,
         component: InputEditor,
         attributes: {
             title: 'Phone nubmer',
@@ -190,7 +195,7 @@ const textValues = [
         },
     },
     {
-        id: 7,
+        id: 8,
         component: BirthdatePicker,
         attributes: {
             title: 'Birthdate',
