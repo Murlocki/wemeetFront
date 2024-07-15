@@ -48,20 +48,6 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
         userAvatar: '/src/assets/DefaultUser/defaultUser.svg',
         userProfileBack: '',
     })
-    const userDataNames = ref({
-        userLogin: 'Username',
-        userFirstName: 'First name',
-        userMiddleName: 'Middle name',
-        userLastName: 'Last name',
-        userEmail: 'Email',
-        companyName: 'Company name',
-        phoneNumber: 'Phone number',
-        birthDate: 'Birth date',
-        address: 'Physical address',
-        userAvatar: 'User avatar',
-        userProfileBack: 'User profile background',
-    })
-
     function setUserData(newValue, valueKey) {
         userData.value[valueKey] = newValue
     }
@@ -100,7 +86,6 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
 
         isLoggged,
         userData,
-        userDataNames,
         setUserData,
     }
 })

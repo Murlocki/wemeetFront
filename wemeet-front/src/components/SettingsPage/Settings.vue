@@ -1,33 +1,38 @@
 <template>
-    <div class="w-12 md:w-9 lg:w-8 shadow-2 py-4 px-3 md:px-4" style="border-radius: 15px">
-        <div class="profile-background">
-            <img :src="back" alt="fff" />
+    <div class="w-12 md:w-9 lg:w-7 shadow-2 mt-4 mb-4" style="border-radius: 15px">
+        <profile class="mb-4"></profile>
+        <div class="w-full mb-6 px-3 md:px-4" v-for="elem in textValues" :key="elem.id">
+            <component :is="elem.component" v-bind="elem.attributes"></component>
         </div>
-        <div class="w-full mb-6">
-            <input-editor
-                :originalValue="store.$state.userData.userLogin"
-                :acceptFunction="settingUserName"
-                title="Username"
-            ></input-editor>
-        </div>
-        <div class="flex justify-content-between w-full mb-6">
-            <span class="text-2xl border-bottom-1">Profile avatar</span>
+        <div class="flex justify-content-between w-full mb-6 px-3 md:px-4">
+            <span class="text-lg lg:text-2xl border-bottom-1">Profile avatar</span>
             <picture-picker
-                :setFunction="store.setAvatar"
-                :buttonLabel="'Choose avatar file'"
+                :setFunction="setAvatar"
+                :buttonLabel="''"
                 :stencil_component="CircleStencil"
                 :ratio="{ X: 1, Y: 1 }"
             ></picture-picker>
         </div>
-        <div class="flex justify-content-between w-full">
-            <span class="text-2xl border-bottom-1">Profile background</span>
-            <picture-picker
-                :setFunction="store.setProfileBack"
-                :buttonLabel="'Choose profile background'"
-                :ratio="{ X: 2, Y: 1 }"
-            >
-            </picture-picker>
+        <div class="flex justify-content-between w-full px-3 md:px-4 mb-5">
+            <span class="text-lg lg:text-2xl border-bottom-1">Profile background</span>
+            <picture-picker :setFunction="setProfileBack" :buttonLabel="''" :ratio="{ X: 2, Y: 1 }"> </picture-picker>
         </div>
+        <personal-validator
+            v-model:vis="openValidatorEmail"
+            :validateValue="emailValue"
+            title="Validate email changing"
+            yourObject="email"
+            :acceptFunction="handleSettingEmail"
+            :resendFunction="handleResendEmailCode"
+        ></personal-validator>
+        <personal-validator
+            v-model:vis="openValidatorPhone"
+            :validateValue="phoneValue"
+            title="Validate phone changing"
+            yourObject="phone"
+            :acceptFunction="handleSettingPhone"
+            :resendFunction="handleResendPhoneCode"
+        ></personal-validator>
     </div>
 </template>
 
@@ -37,7 +42,9 @@ import { userSettingsStore } from '../../store/userSettingsStore'
 import { CircleStencil } from 'vue-advanced-cropper'
 import { computed, ref } from 'vue'
 import InputEditor from './InputEditor.vue'
-
+import PersonalValidator from './PersonalValidator.vue'
+import BirthdatePicker from './BirthdatePicker.vue'
+import Profile from './Profile.vue'
 const store = userSettingsStore()
 
 const back = computed(() => {
@@ -47,52 +54,151 @@ const back = computed(() => {
 const settingUserName = function (newValue) {
     store.setUserData(newValue, 'userLogin')
 }
+const settingFirstName = function (newValue) {
+    store.setUserData(newValue, 'userFirstName')
+}
+const settingMiddleName = function (newValue) {
+    store.setUserData(newValue, 'userMiddleName')
+}
+const settingLastName = function (newValue) {
+    store.setUserData(newValue, 'userLastName')
+}
 
-const textValues = ref([
+//Валидация почты
+const openValidatorEmail = ref(false)
+const emailValue = ref('')
+
+const handleSettingEmail = function (submitCode) {
+    //Ну короче код типо верный
+    store.setUserData(emailValue.value, 'userEmail')
+}
+const handleResendEmailCode = function () {
+    //Типо перессылка или тип того
+}
+const settingEmail = function (newValue) {
+    emailValue.value = newValue
+    openValidatorEmail.value = true
+}
+
+//Для адреса
+const settingAddress = function (newValue) {
+    store.setUserData(newValue, 'address')
+}
+//Для кампании
+const settingCompany = function (newValue) {
+    store.setUserData(newValue, 'companyName')
+}
+
+//Валидация телефона
+const openValidatorPhone = ref(false)
+const phoneValue = ref('')
+
+const handleSettingPhone = function (submitCode) {
+    //Ну короче код типо верный
+    store.setUserData(phoneValue.value, 'phoneNumber')
+}
+const handleResendPhoneCode = function () {
+    //Типо перессылка или тип того
+}
+const settingPhone = function (newValue) {
+    phoneValue.value = newValue
+    openValidatorPhone.value = true
+}
+//Для даты рождения
+const settingBirthdate = function (newValue) {
+    store.setUserData(newValue, 'birthDate')
+}
+
+//Для аватара
+const setAvatar = function (newValue) {
+    store.setUserData(newValue, 'userAvatar')
+}
+const setProfileBack = function (newValue) {
+    store.setUserData(newValue, 'userProfileBack')
+}
+const textValues = [
     {
         id: 0,
-        title: 'Username',
-        value: store.$state.userData.userLogin,
-        originalValue: store.$state.userData.userLogin,
+        component: InputEditor,
+        attributes: {
+            title: 'Username',
+            originalValue: store.$state.userData.userLogin,
+            acceptFunction: settingUserName,
+        },
     },
     {
         id: 1,
-        title: 'Email',
-        value: store.$state.userData.userEmail,
-        originalValue: store.$state.userData.userEmail,
+        component: InputEditor,
+        attributes: {
+            title: 'First name',
+            originalValue: store.$state.userData.userFirstName,
+            acceptFunction: settingFirstName,
+        },
     },
     {
         id: 2,
-        title: 'Surname',
-        value: store.$state.surname,
-        originalValue: store.$state.surname,
+        component: InputEditor,
+        attributes: {
+            title: 'Middle name',
+            originalValue: store.$state.userData.userMiddleName,
+            acceptFunction: settingMiddleName,
+        },
     },
     {
         id: 3,
-        title: 'Name',
-        value: store.$state.name,
-        originalValue: store.$state.name,
+        component: InputEditor,
+        attributes: {
+            title: 'Last name',
+            originalValue: store.$state.userData.userLastName,
+            acceptFunction: settingLastName,
+        },
+    },
+    {
+        id: 3,
+        component: InputEditor,
+        attributes: {
+            title: 'User email',
+            originalValue: store.$state.userData.userEmail,
+            acceptFunction: settingEmail,
+        },
     },
     {
         id: 4,
-        title: 'Patronymic',
-        value: store.$state.patronymic,
-        originalValue: store.$state.patronymic,
+        component: InputEditor,
+        attributes: {
+            title: 'Address',
+            originalValue: store.$state.userData.address,
+            acceptFunction: settingAddress,
+        },
     },
-])
+    {
+        id: 5,
+        component: InputEditor,
+        attributes: {
+            title: 'Company name',
+            originalValue: store.$state.userData.companyName,
+            acceptFunction: settingCompany,
+        },
+    },
+    {
+        id: 6,
+        component: InputEditor,
+        attributes: {
+            title: 'Phone nubmer',
+            originalValue: store.$state.userData.phoneNumber,
+            acceptFunction: settingPhone,
+        },
+    },
+    {
+        id: 7,
+        component: BirthdatePicker,
+        attributes: {
+            title: 'Birthdate',
+            originalValue: store.$state.userData.birthDate,
+            acceptFunction: settingBirthdate,
+        },
+    },
+]
 </script>
 
-<style>
-.profile-background {
-    position: relative;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.profile-background img {
-    width: 100%;
-    height: 100%;
-}
-</style>
+<style></style>
