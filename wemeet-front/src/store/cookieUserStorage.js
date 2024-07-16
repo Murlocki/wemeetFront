@@ -4,12 +4,9 @@ import Cookies from 'js-cookie'
 import { userSettingsStore } from './userSettingsStore'
 export const cookieUserStorage = defineStore('cookieUserStorage', () => {
     const store = userSettingsStore()
-
-    const currentLogin = store.$state.currentLogin
-    const jwt = Cookies.get(currentLogin)
-
-    const jwtKey = ref(jwt ? jwt : 'cookie')
+    const jwtKey = ref('')
     function setJwtKey(newKey) {
+        const currentLogin = store.$state.currentLogin
         jwtKey.value = newKey
         Cookies.set(currentLogin, newKey)
     }

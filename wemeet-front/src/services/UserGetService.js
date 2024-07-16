@@ -2,7 +2,7 @@
 class UserGetService {
     getUser(id) {
         return {
-            userLogin: 'loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
+            userUsername: 'loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
             userFirstName: 'kir',
             userMiddleName: 'kor',
             userLastName: 'ov',

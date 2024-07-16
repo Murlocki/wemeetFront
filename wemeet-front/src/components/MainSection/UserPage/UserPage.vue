@@ -11,7 +11,7 @@
                 >
                     <profile
                         :userProfileBack="userInfo.userProfileBack"
-                        :userUsername="userInfo.userLogin"
+                        :userUsername="userInfo.userUsername"
                         :userAvatar="userInfo.userAvatar"
                         class="mb-4"
                     ></profile>

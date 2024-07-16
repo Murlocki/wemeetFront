@@ -12,7 +12,7 @@ class RegisterAuthService {
     loginUser(userLogin, userPassword) {
         //Тут типо еще проверка верности пароля и логина будет
         this.store = userSettingsStore()
-        this.store.setUserData(userLogin, 'userLogin')
+        this.store.setLoggin(userLogin)
         this.store.setLogged(true)
         //Тут еще типо ключ этот поставили
         this.store.$state.setJwtKey('Заглушка ключ')

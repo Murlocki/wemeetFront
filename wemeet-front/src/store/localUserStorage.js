@@ -3,12 +3,9 @@ import { computed, ref } from 'vue'
 import { userSettingsStore } from './userSettingsStore'
 export const localUserStorage = defineStore('localUserStorage', () => {
     const store = userSettingsStore()
-    const currentLogin = store.$state.currentLogin
-
-    const jwt = localStorage.getItem(currentLogin)
-
-    const jwtKey = ref(jwt ? jwt : 'local')
+    const jwtKey = ref('')
     function setJwtKey(newKey) {
+        const currentLogin = store.$state.currentLogin
         jwtKey.value = newKey
         localStorage.setItem(currentLogin, jwtKey.value)
     }
