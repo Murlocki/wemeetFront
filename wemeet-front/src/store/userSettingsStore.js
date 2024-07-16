@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import Cookies from 'js-cookie'
-import avatarTest from '/src/assets/DefaultUser/avatarTest.png'
+import { localUserStorage } from './localUserStorage'
+import { cookieUserStorage } from './cookieUserStorage'
 export const userSettingsStore = defineStore('userSettingsStore', () => {
     //Выбор темы
     const darkModeOn = ref(false)
@@ -9,34 +10,18 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
         darkModeOn.value = !darkModeOn.value
     }
 
-    //Выбор хранилища для jwt ключа
-    const storageChose = localStorage.getItem('storageChose')
-    const storageChoseCookie = Cookies.get('storageChose')
-
-    const choosedStorage = ref(storageChose || storageChoseCookie ? true : false)
-
-    const storage = ref()
-
-    function chooseStorage(selectedStorage) {
-        localStorage.setItem('storageChose', true)
-        choosedStorage.value = true
-
-        storage.value = selectedStorage
+    //Для логирования
+    const currentLogin = ref('')
+    const setLoggin = function (value) {
+        currentLogin.value = value
     }
-
-    var getJwt = null
-    var setJwtKey = null
-    if (storage.value) {
-        getJwt = computed(() => storage.value.getJwt())
-        setJwtKey = function (newKey) {
-            storage.value.setJwtKey(newKey)
-        }
+    const isLoggged = ref(false)
+    const setLogged = function (value) {
+        isLoggged.value = value
     }
-
-    const isLoggged = ref(true)
     /*Короче надо как-то сделать чтобы можно было хранить ключи кучи пользователей на 1 компе */
     const userData = ref({
-        userLogin: 'loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
+        userUsername: 'loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
         userFirstName: 'kir',
         userMiddleName: 'kor',
         userLastName: 'ov',
@@ -51,41 +36,65 @@ export const userSettingsStore = defineStore('userSettingsStore', () => {
     function setUserData(newValue, valueKey) {
         userData.value[valueKey] = newValue
     }
-    // const userLogin = ref('loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
 
-    // //Методы для аватара
-    // const userAvatar = ref('/src/assets/DefaultUser/defaultUser.svg')
+    //Выбор хранилища для jwt ключа
+    const storageChose = localStorage.getItem('wemeet-storageChose')
+    console.log(storageChose)
 
-    // function setAvatar(file) {
-    //     userAvatar.value = file
-    // }
+    const choosedStorage = ref(storageChose ? true : false)
 
-    // //Методы для фона
-    // const userProfileBack = ref(null)
-    // function setProfileBack(file) {
-    //     console.log(file)
-    //     userProfileBack.value = file
-    // }
+    //Пусть оно по умолчанию будет локальным,чтобы все работало
+    const storage = ref()
+    function initDefaultStorage() {
+        if (storageChose == 'cookie') {
+            storage.value = cookieUserStorage()
+            getJwt.value = computed(() => storage.value.getJwt())
+            setJwtKey.value = function (newKey) {
+                storage.value.setJwtKey(newKey)
+            }
+        } else {
+            storage.value = localUserStorage()
+            getJwt.value = computed(() => storage.value.getJwt())
+            setJwtKey.value = function (newKey) {
+                storage.value.setJwtKey(newKey)
+            }
+            console.log(setJwtKey.value)
+        }
+    }
 
-    // const userAvatar = ref()
-    // fetch('/src/assets/DefaultUser/avatarTest.png')
-    //     .then((response) => response.blob())
-    //     .then((blob) => {
-    //         userAvatar.value = URL.createObjectURL(blob)
-    //         console.log(userAvatar.value)
-    //     })
-    // console.log(userAvatar.value)
+    function chooseStorage(selectedStorage, name) {
+        localStorage.setItem('wemeet-storageChose', name)
+        console.log(localStorage.getItem('wemeet-storageChose'))
+        choosedStorage.value = true
+
+        storage.value = selectedStorage
+        getJwt.value = computed(() => storage.value.getJwt())
+        setJwtKey.value = function (newKey) {
+            storage.value.setJwtKey(newKey)
+        }
+    }
+
+    const getJwt = ref()
+    const setJwtKey = ref()
+
     return {
+        storage,
+        getJwt,
+        setJwtKey,
+        initDefaultStorage,
+
         darkModeOn,
         setVisualMode,
 
         choosedStorage,
         chooseStorage,
-        getJwt,
-        setJwtKey,
 
         isLoggged,
+        setLogged,
         userData,
         setUserData,
+
+        currentLogin,
+        setLoggin,
     }
 })

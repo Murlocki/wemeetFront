@@ -5,7 +5,7 @@ import { userSettingsStore } from './userSettingsStore'
 export const cookieUserStorage = defineStore('cookieUserStorage', () => {
     const store = userSettingsStore()
 
-    const currentLogin = store.$state.userLogin
+    const currentLogin = store.$state.currentLogin
     const jwt = Cookies.get(currentLogin)
 
     const jwtKey = ref(jwt ? jwt : 'cookie')

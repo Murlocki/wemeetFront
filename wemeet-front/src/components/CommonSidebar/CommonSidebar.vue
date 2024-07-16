@@ -47,7 +47,7 @@
                                 class="text-color text-2xl"
                                 style="overflow: hidden; text-overflow: ellipsis; width: 70%"
                             >
-                                {{ store.$state.userData.userLogin }}
+                                {{ store.$state.userData.userUsername }}
                             </span>
                         </div>
                     </Button>

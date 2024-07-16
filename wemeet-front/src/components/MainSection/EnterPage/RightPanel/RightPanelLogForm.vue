@@ -8,7 +8,7 @@
                 height: fit-content;
                 min-height: 360px;
                 border: 3px solid black;
-                min-width: 300px;
+                min-width: 340px;
             "
         >
             <transition name="forms-create">
@@ -41,7 +41,6 @@
                                     :is="item.component"
                                     v-model="item.value.value"
                                     v-bind="item.attributes"
-                                    :invalid="item.id == incorrectField ? true : false"
                                     required
                                 >
                                 </component>
@@ -90,14 +89,14 @@ function closeTheForm() {
     setTimeout(() => (textCl.value = false), 1000)
     setTimeout(() => (formOpen.value = false), 2000)
 }
-
-const userName = ref('')
+//Настройка компонентов формы
+const userLogin = ref('')
 const password1 = ref('')
 const registerFormEnters = [
     {
         id: 1,
-        title: 'UserName',
-        value: userName,
+        title: 'userLogin',
+        value: userLogin,
         component: InputText,
         attributes: {
             class: 'bg-primary-reverse text-base w-12',
@@ -117,7 +116,7 @@ const registerFormEnters = [
         },
     },
 ]
-
+//Настройка иконок
 import { computed } from 'vue'
 import { loginArrowWhite, loginArrowBlack } from '@assets/index.js'
 import { backArrowBlack, backArrowWhite } from '@assets/index.js'
@@ -133,21 +132,17 @@ const themeBackIcon = computed(() => {
 
 /* Валидация формы */
 const errorMessage = ref('')
-const incorrectField = ref(-1)
-import RegisterFormValidator from '/src/validators/RegisterFormValidator.js'
+import RegisterAuthService from '../../../../services/RegisterAuthService'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 function validateRegisterForm() {
-    const regFormValidator = RegisterFormValidator
-    if (!regFormValidator.validateUsername(userName.value)) {
-        errorMessage.value = 'Incorrect userName'
-        incorrectField.value = 0
-        return
+    const loginService = RegisterAuthService
+    errorMessage.value = ''
+    store.initDefaultStorage()
+    if (!loginService.loginUser(userLogin.value, password1.value)) {
+        errorMessage.value = 'Incorrect login or password'
     }
-    if (!regFormValidator.validatePassword(password1.value)) {
-        errorMessage.value = 'Incorrect password'
-        incorrectField.value = 1
-        return
-    }
-    incorrectField.value = -1
+    router.push('/home')
     return true
 }
 </script>

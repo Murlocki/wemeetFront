@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { userSettingsStore } from './userSettingsStore'
 export const localUserStorage = defineStore('localUserStorage', () => {
     const store = userSettingsStore()
-    const currentLogin = store.$state.userLogin
+    const currentLogin = store.$state.currentLogin
 
     const jwt = localStorage.getItem(currentLogin)
 

@@ -2,8 +2,13 @@
     <Dialog v-model:visible="showDialog" header="Cookies" :style="{ width: '25rem', height: '200px' }" position="top">
         <span class="p-text-secondary mb-5">Do you want to use cookie?</span>
         <div class="flex justify-content-between mt-5">
-            <Button type="button" label="Accept" severity="secondary" @click="setStorate(cookieStorage)"></Button>
-            <Button type="button" label="Cancel" @click="setStorate(localStore)"></Button>
+            <Button
+                type="button"
+                label="Accept"
+                severity="secondary"
+                @click="setStorate(cookieStorage, 'cookie')"
+            ></Button>
+            <Button type="button" label="Cancel" @click="setStorate(localStore, 'local')"></Button>
         </div>
     </Dialog>
 </template>
@@ -20,9 +25,9 @@ const store = userSettingsStore()
 const localStore = localUserStorage()
 const cookieStorage = cookieUserStorage()
 
-function setStorate(storage) {
+function setStorate(storage, name) {
     console.log(storage)
-    store.chooseStorage(storage)
+    store.chooseStorage(storage, name)
     console.log(storage.getJwt)
 }
 

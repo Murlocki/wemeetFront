@@ -57,7 +57,7 @@ const back = computed(() => {
 })
 
 const settingUserName = function (newValue) {
-    store.setUserData(newValue, 'userLogin')
+    store.setUserData(newValue, 'userUsername')
 }
 const settingFirstName = function (newValue) {
     store.setUserData(newValue, 'userFirstName')
@@ -127,7 +127,7 @@ const textValues = [
         component: InputEditor,
         attributes: {
             title: 'Username',
-            originalValue: store.$state.userData.userLogin,
+            originalValue: store.$state.userData.userUsername,
             acceptFunction: settingUserName,
         },
     },

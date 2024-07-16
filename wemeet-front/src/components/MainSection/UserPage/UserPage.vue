@@ -59,7 +59,7 @@ onBeforeMount(async () => {
         {
             id: 0,
             title: 'Username',
-            val: userInfo.value.userLogin,
+            val: userInfo.value.userUsername,
         },
         {
             id: 1,
