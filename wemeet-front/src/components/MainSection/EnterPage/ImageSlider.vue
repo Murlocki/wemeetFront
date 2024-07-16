@@ -6,9 +6,11 @@
             width: fit-content;
             height: fit-content;
             border-radius: 30px;
+            will-change: transform;
         "
     >
         <Galleria
+            v-memo="[images]"
             :value="images"
             :numVisible="5"
             :circular="true"

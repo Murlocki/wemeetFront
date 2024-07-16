@@ -1,5 +1,5 @@
 <template>
-    <div class="p-1 flex flex-column justify-content-center w-10 md:w-4 align-content-center" style="min-height: 530px">
+    <div class="p-1 flex flex-column justify-content-center w-10 md:w-4 align-content-center" style="min-height: 604px">
         <transition name="closeRightText">
             <div v-if="!(loginFormOpen || registerFormOpen)">
                 <RightPanelTitlesVue class="mb-5"></RightPanelTitlesVue>
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </transition>
-        <div class="flex justify-content-center">
+        <div v-if="loginFormOpen || registerFormOpen" class="flex justify-content-center">
             <right-panel-register-form
                 v-model:textCl="textClosed"
                 v-model:registerFormOpen="registerFormOpen"
